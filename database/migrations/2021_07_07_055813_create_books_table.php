@@ -16,10 +16,10 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('code')->unique();
-            $table->string('title');
-            $table->string('editorial');
-            $table->string('copies');
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->string('editorial')->nullable();
+            $table->unsignedInteger('copies')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

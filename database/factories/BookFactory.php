@@ -22,7 +22,12 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code'          =>  $this->faker->unique()->randomNumber(6, true),
+            'title'         =>  $this->faker->sentence(3),
+            'editorial'     =>  $this->faker->company(),
+            'copies'        =>  $this->faker->randomNumber(2),
+            'description'   =>  $this->faker->text()
         ];
     }
 }
+
