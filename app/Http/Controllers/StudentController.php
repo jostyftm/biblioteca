@@ -14,7 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.student.index');
+        $students = Student::with('user')->paginate(5);
+        
+        return view('pages.admin.student.index', compact('students'));
     }
 
     /**
