@@ -17,6 +17,7 @@
            <div>
                @yield('header_section')
            </div> 
+            @include('components.flash-messages')
             @yield('content_main')
         </div>
     </div>

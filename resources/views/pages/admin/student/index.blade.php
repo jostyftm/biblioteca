@@ -27,9 +27,12 @@
                         <td>{{ $student->user->last_name}}</td>
                         <td>{{ $student->user->email}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">
+                            <a 
+                                class="btn btn-sm btn-primary"
+                                href="{{ route('students.edit', [$student->id]) }}"
+                            >
                                 Editar
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
