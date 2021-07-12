@@ -14,6 +14,9 @@
             </div>
         </div>
         <div class="col-md-10">
+           <div>
+               @yield('header_section')
+           </div> 
             @yield('content_main')
         </div>
     </div>
