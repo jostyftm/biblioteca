@@ -40,4 +40,16 @@ class CreateReservationRequest extends FormRequest
             ]
         ];
     }
+
+    /**
+     * 
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'student_code.required' =>  'El codigo del estudiante es requerido',
+            'book_code.required'    =>  'El codigo del libro es requerido'
+        ];
+    }
 }

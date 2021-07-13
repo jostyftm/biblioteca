@@ -8,6 +8,22 @@
 @endsection
 @section('content_main')
     <div class="bg-white p-4 rounded shadow-sm">
+        <nav class="nav nav-pills mb-2">
+            <a 
+                class="nav-link @if($tab_active == null) active @endif" 
+                href="/panel/reservations"
+            >
+                Todos ({{ $all_reservations }})
+            </a>
+        @foreach($states as $key => $state)
+            <a 
+                class="nav-link @if($tab_active == $state->state_id) active @endif" 
+                href="/panel/reservations?sid={{$state->state_id}}"
+            >
+                {{ $state->name }} ({{ $state->total }})
+            </a>
+        @endforeach
+        </nav>
         <div class="table-responsible">
             <table class="table">
                 <thead>
@@ -27,15 +43,18 @@
                         <td>{{ $reservation->student->user->name }}</td>
                         <td>{{ $reservation->book->title }}</td>
                         <td>
-                            <span class="badge {{ $reservation->state->bg_color}}">
+                            <span class="badge badge-{{ $reservation->state->bg_color}}">
                                 {{ $reservation->state->name }}
                             </span>
                         </td>
                         <td>{{ $reservation->reservated_at }}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">
+                            <a 
+                                class="btn btn-sm btn-primary"
+                                href="{{ route('reservations.edit', [$reservation->id]) }}"    
+                            >
                                 Editar
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

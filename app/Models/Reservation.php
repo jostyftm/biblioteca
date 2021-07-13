@@ -43,4 +43,13 @@ class Reservation extends Model
     {
         return $this->belongsTo(ReservationState::class, 'reservation_state_id');
     }
+
+    /**
+     * 
+     */
+    public function scopeByState($query, $state_id)
+    {
+        if($state_id)
+            return $query->where('reservation_state_id', '=', $state_id);
+    }
 }
