@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateReservationRequest;
+use App\Models\Book;
 use App\Models\Reservation;
+use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -15,6 +19,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::with(['student.user', 'book', 'state'])
+        ->orderBy('id', 'desc')
         ->paginate(5);
 
         return view('pages.admin.reservation.index', compact('reservations'));
@@ -27,7 +32,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.reservation.create');
     }
 
     /**
@@ -36,9 +41,23 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CreateReservationRequest $request)
+    {  
+        $student = Student::where('code', '=', $request->student_code)->first();
+        $book = Book::where('code', '=', $request->book_code)->first();
+
+        $reservation = $student->reservations()->create([
+            'book_id'               =>  $book->id,
+            'reservation_state_id'  => $book->id,
+            'reservated_at'         => Carbon::now()
+        ]);
+
+        $book->update([
+            'copies' => ($book->copies - 1) 
+        ]);
+
+        return redirect()->route('reservations.index')
+        ->with('success', 'Se ha realizado la reservación con exito');
     }
 
     /**
