@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -30,6 +32,19 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('pages.admin.index');
+        $states = Reservation::select('reservation_states.id AS state_id','reservation_states.name', DB::raw('COUNT(*) AS total'), 'reservation_states.bg_color')
+        ->join('reservation_states', 'reservations.reservation_state_id', '=', 'reservation_states.id')
+        ->groupBy('reservations.reservation_state_id')
+        ->get();
+        
+        $lastReservations = Reservation::with(['student.user', 'book', 'state'])
+        ->orderBy('id', 'desc')
+        ->take(10)
+        ->get();
+        
+        return view('pages.admin.index', [
+            'states'    =>  $states,
+            'lastReservations'  =>  $lastReservations
+        ]);
     }
 }
