@@ -41,7 +41,7 @@
             </div>
             <div class="">
                 <button class="btn btn-primary" type="submit">Crear libro</button>
-                <a href="{{ route('books.index') }}" class="btn btn-secondary">Cancelar</a>
+                <a href="{{ route('reservations.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>
