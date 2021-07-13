@@ -44,6 +44,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * 
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->last_name}";
+    }
+
+    /**
      * Relationships
      */
     public function student(): HasOne
