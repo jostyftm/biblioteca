@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -14,7 +15,8 @@ class Reservation extends Model
 
     protected $fillable = [
         'student_id',
-        'reservation_state',
+        'book_id',
+        'reservation_state_id',
         'reservated_at'
     ];
 
@@ -29,9 +31,16 @@ class Reservation extends Model
     /**
      * 
      */
-    public function books(): BelongsToMany
+    public function book(): BelongsTo
     {
-        return $this->belongsToMany(Book::class, 'reservation_items')
-        ->using(ReservationItem::class);
+        return $this->belongsTo(Book::class, 'book_id');
+    }
+
+    /**
+     * 
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(ReservationState::class, 'reservation_state_id');
     }
 }

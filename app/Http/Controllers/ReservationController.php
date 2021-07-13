@@ -14,7 +14,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('student.user')
+        $reservations = Reservation::with(['student.user', 'book', 'state'])
         ->paginate(5);
 
         return view('pages.admin.reservation.index', compact('reservations'));

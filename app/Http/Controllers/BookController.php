@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.book.create');
     }
 
     /**
@@ -35,9 +37,13 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
         //
+        $book = Book::create($request->all());
+
+        return redirect()->route('books.index')
+        ->with('success', 'El libro se ha creado exitosamente');
     }
 
     /**
@@ -60,6 +66,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        return view('pages.admin.book.edit', compact('book'));
     }
 
     /**
@@ -69,9 +76,14 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book->fill($request->all());
+
+        $book->update();
+
+        return redirect()->route('books.index')
+        ->with('success', 'Se ha actualizado el libro con exito');
     }
 
     /**

@@ -24,18 +24,14 @@ class StudentTableSedder extends Seeder
         ->count(30)
         ->create()
         ->each(function(Student $student) use ($books){
-            $reservations = $student->reservations()->saveMany(
-                Reservation::factory()->count(3)->create([
-                    'student_id'        =>  $student->id,
-                    'reservation_state' => 1,
-                    'reservated_at'     =>  Carbon::now()
+            $student->reservations()->save(
+                Reservation::factory()->create([
+                    'student_id'            =>  $student->id,
+                    'book_id'               =>  $books->random(),
+                    'reservation_state_id'  =>  1,
+                    'reservated_at'         =>  Carbon::now()
                 ])
             );
-            
-            foreach($reservations as $reservation) {
-                $reservation->books()->attach($books->random(3));
-            }
-
         });
     }
 }

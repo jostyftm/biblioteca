@@ -14,6 +14,7 @@
                     <tr>
                         <th>Codigo</th>
                         <th>Estudiante</th>
+                        <th>Libro</th>
                         <th>Estado</th>
                         <th>Fecha de prestamo</th>
                         <th>Acción</th>
@@ -24,7 +25,12 @@
                     <tr>
                         <td>{{ $reservation->id}}</td>
                         <td>{{ $reservation->student->user->name }}</td>
-                        <td>{{ $reservation->reservation_state }}</td>
+                        <td>{{ $reservation->book->title }}</td>
+                        <td>
+                            <span class="badge {{ $reservation->state->bg_color}}">
+                                {{ $reservation->state->name }}
+                            </span>
+                        </td>
                         <td>{{ $reservation->reservated_at }}</td>
                         <td>
                             <button class="btn btn-sm btn-primary">

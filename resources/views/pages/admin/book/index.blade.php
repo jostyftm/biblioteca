@@ -23,13 +23,16 @@
                     @foreach($books as $book)
                     <tr>
                         <td>{{ $book->code}}</td>
-                        <td>{{ $book->titel }}</td>
+                        <td>{{ $book->title }}</td>
                         <td>{{ $book->editorial }}</td>
                         <td>{{ $book->copies }}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">
+                            <a 
+                                class="btn btn-sm btn-primary"
+                                href="{{ route('books.edit', [$book->id])}}"
+                            >
                                 Editar
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
