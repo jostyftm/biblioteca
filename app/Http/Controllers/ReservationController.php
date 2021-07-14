@@ -62,8 +62,8 @@ class ReservationController extends Controller
 
         $reservation = $student->reservations()->create([
             'book_id'               =>  $book->id,
-            'reservation_state_id'  => $book->id,
-            'reservated_at'         => Carbon::now()
+            'reservation_state_id'  =>  1,
+            'reservated_at'         =>  Carbon::now()
         ]);
 
         $book->update([
