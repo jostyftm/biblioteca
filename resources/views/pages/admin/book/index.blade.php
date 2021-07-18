@@ -8,6 +8,19 @@
 @endsection
 @section('content_main')
     <div class="bg-white p-4 rounded shadow-sm">
+        <div>
+            <form class="form-inline" method="GET" enctype="application/x-www-form-urlencoded">
+                <div class="form-group mb-3">
+                    <input 
+                        type="text" 
+                        name="search_book" 
+                        class="form-control mr-2" 
+                        placeholder="codigo, titulo, editorial"
+                        />
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
         <div class="table-responsible">
             <table class="table">
                 <thead>
