@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentController extends Controller
 {
@@ -15,12 +16,19 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with('user')
-        ->orderBy('id', 'desc')
-        ->paginate(5);
-        
+
+        $students = new LengthAwarePaginator(collect(), 0, 1);
+
+        if(isset($request->search_student)){
+            $students = Student::searchStudent($request->search_student);
+        }else {
+            $students = Student::with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+        }        
+
         return view('pages.admin.student.index', compact('students'));
     }
 
