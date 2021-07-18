@@ -34,7 +34,7 @@ class HomeController extends Controller
     {
         $states = Reservation::select('reservation_states.id AS state_id','reservation_states.name', DB::raw('COUNT(*) AS total'), 'reservation_states.bg_color')
         ->join('reservation_states', 'reservations.reservation_state_id', '=', 'reservation_states.id')
-        ->groupBy('reservations.reservation_state_id')
+        ->groupBy('state_id', 'reservation_states.name', 'reservation_states.bg_color')
         ->get();
         
         $lastReservations = Reservation::with(['student.user', 'book', 'state'])
