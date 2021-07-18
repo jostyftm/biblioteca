@@ -117,14 +117,14 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
+
         if($request->reservation_state_id != $reservation->reservation_state_id){
 
             $book = $reservation->book;
             $copies = $book->copies;
 
             $reservation->fill($request->all());
-            $reservation->update();
-
+            
             if($request->reservation_state_id == 1){
                 $copies -= 1;
             }else if(
@@ -138,6 +138,9 @@ class ReservationController extends Controller
                 'copies'    =>  $copies
             ]);
         }
+
+        $reservation->reservated_at = ($request->reservated_at != null) ? new Carbon($request->reservated_at) : $reservation->getOriginal('reservated_at');
+        $reservation->update();
 
         return redirect()->route('reservations.index')
         ->with('success', 'Se ha actualizado el prestamo con exito');
