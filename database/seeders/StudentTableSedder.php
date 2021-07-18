@@ -24,12 +24,15 @@ class StudentTableSedder extends Seeder
         ->count(30)
         ->create()
         ->each(function(Student $student) use ($books){
+
+            $today = Carbon::now();
+
             $student->reservations()->save(
                 Reservation::factory()->create([
                     'student_id'            =>  $student->id,
                     'book_id'               =>  $books->random(),
                     'reservation_state_id'  =>  1,
-                    'reservated_at'         =>  Carbon::now()
+                    'reservated_at'         =>  $today->subDays(random_int(1, 6))
                 ])
             );
         });
