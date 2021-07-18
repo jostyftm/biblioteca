@@ -67,6 +67,10 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de reserva</label>
+                            <input type="datetime-local" name="reservated_at" class="form-control" value="{{$reservation->reservated_at}}" />
+                        </div>
                         <button class="btn btn-primary btn-block" type="submit">Actualizar</button>
                     </form>
                 </div>
