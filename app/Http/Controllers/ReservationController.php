@@ -23,7 +23,7 @@ class ReservationController extends Controller
 
         $states = Reservation::select('reservation_states.id AS state_id','reservation_states.name', DB::raw('COUNT(*) AS total'))
         ->join('reservation_states', 'reservations.reservation_state_id', '=', 'reservation_states.id')
-        ->groupBy('reservations.reservation_state_id')
+        ->groupBy('state_id', 'reservation_states.name')
         ->get();
         
         $reservations = Reservation::byState($request->sid)
