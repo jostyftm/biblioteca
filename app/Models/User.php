@@ -52,6 +52,14 @@ class User extends Authenticatable
     }
 
     /**
+     * 
+     */
+    public function scopeOrByName($query, $name)
+    {
+        return $query->orWhere('name', $name);
+    }
+
+    /**
      * Relationships
      */
     public function student(): HasOne
