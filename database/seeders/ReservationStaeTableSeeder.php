@@ -16,25 +16,25 @@ class ReservationStaeTableSeeder extends Seeder
     {
         ReservationState::create([
             'name'      => 'prestado',
-            'bg_color'  =>  'badge-warning',
+            'bg_color'  =>  'warning',
             'text_color'=>  ''
         ]);
         
         ReservationState::create([
             'name'      =>  'devuelto',
-            'bg_color'  =>  'badge-success',
+            'bg_color'  =>  'success',
             'text_color'=>  ''
         ]);
         
         ReservationState::create([
             'name'      => 'sancionado sin devolder',
-            'bg_color'  =>  'badge-danger',
+            'bg_color'  =>  'danger',
             'text_color'=>  ''
         ]);
 
         ReservationState::create([
             'name'      => 'sancionado devuelto',
-            'bg_color'  =>  'badge-info',
+            'bg_color'  =>  'info',
             'text_color'=>  ''
         ]);
     }
