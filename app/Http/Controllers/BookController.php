@@ -6,6 +6,7 @@ use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BookController extends Controller
 {
@@ -14,10 +15,17 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::orderBy('id', 'desc')
-        ->paginate(5);
+        $books = new LengthAwarePaginator(collect(), 0, 1);
+
+        if(isset($request->search_book)){
+            $books = Book::searchBooks($request->search_book);
+        }else {
+            $books = Book::orderBy('id', 'desc')
+            ->paginate(5);
+        } 
+        
 
         return view('pages.admin.book.index', compact('books'));
     }
