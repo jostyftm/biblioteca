@@ -26,7 +26,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('panel')->group(function(){
+Route::prefix('panel')->middleware('auth')->group(function(){
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.index');
     
