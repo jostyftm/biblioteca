@@ -23,4 +23,13 @@ class Book extends Model
     {
         return $this->hasMany(Reservation::class, 'book_id');
     }
+
+    public static function searchBooks($search)
+    {
+        return self::orderBy('id', 'desc')
+        ->where('code', 'like', "%{$search}%")
+        ->orWhere('title', 'like', "%{$search}%")
+        ->orWhere('editorial', 'like', "%{$search}%")
+        ->paginate(5);
+    }
 }
