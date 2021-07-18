@@ -31,6 +31,12 @@ class ReservationController extends Controller
         ->orderBy('id', 'desc')
         ->paginate(5);
         
+        $path = $reservations->path();
+        $newPath = isset($request->sid) ? "{$path}?sid={$request->sid}" : $path;
+        
+        $reservations->setPath($newPath);
+        
+
         return view('pages.admin.reservation.index', [
             'reservations'      =>  $reservations,
             'all_reservations'  =>  Reservation::all()->count(),
